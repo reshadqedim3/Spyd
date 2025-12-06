@@ -2,79 +2,229 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8" />
-  <title>Spy Oyunu (Çox Spy-li Versiya)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Spy Oyunu (Mobil üçün)</title>
   <style>
-    body {i
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #020617;
       color: #e5e7eb;
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 20px;
+      align-items: stretch;
+      padding: 12px;
     }
-    .card {
-      background: #111827;
-      border-radius: 12px;
-      padding: 20px 24px;
-      max-width: 420px;
+
+    .wrapper {
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      max-width: 520px;
+      margin: auto;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 16px;
+      padding: 16px 14px 18px;
       border: 1px solid #1f2937;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.55);
     }
-    h1 { text-align: center; font-size: 20px; margin-bottom: 12px; }
-    label { display: block; margin-top: 10px; margin-bottom: 6px; }
+
+    @media (min-width: 480px) {
+      .card {
+        padding: 20px 20px 22px;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin: 0 0 6px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .field-half {
+      flex: 1;
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #cbd5f5;
+    }
+
     input, select {
-      width: 100%; padding: 8px 10px; border-radius: 8px;
-      border: 1px solid #4b5563; background: #020617; color: #e5e7eb;
-      font-size: 14px; outline: none;
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+      outline: none;
     }
+
+    input:focus, select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+    }
+
     button {
-      padding: 8px 14px; border-radius: 8px; border: none;
-      cursor: pointer; font-size: 14px; margin-top: 10px;
+      border: none;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 10px 14px;
     }
-    .btn-main { background: #22c55e; color: #022c22; width: 100%; }
-    .btn-secondary { background: #1f2937; color: #e5e7eb; width: 48%; }
-    .status { margin-top: 10px; text-align: center; }
+
+    .btn-main {
+      width: 100%;
+      margin-top: 14px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #022c22;
+    }
+
+    .btn-main:active {
+      transform: scale(0.98);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid #1f2937;
+      padding: 9px 10px;
+      font-size: 13px;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      transform: none !important;
+      cursor: default;
+    }
+
+    .status {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 13px;
+      color: #e5e7eb;
+      min-height: 18px;
+    }
+
     .card-box {
-      margin-top: 16px; padding: 18px; border-radius: 10px;
-      border: 1px dashed #4b5563; text-align: center;
-      font-size: 18px; display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px dashed #4b5563;
+      text-align: center;
+      font-size: 18px;
+      display: none;
+      background: radial-gradient(circle at top, #1e293b, #020617);
     }
-    .spy { color: #f97316; font-weight: 700; }
-    .location { color: #22c55e; font-weight: 600; }
+
+    .spy {
+      color: #fb923c;
+      font-weight: 700;
+    }
+
+    .location {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .hint {
+      margin-top: 6px;
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+    }
   </style>
 </head>
-
 <body>
-  <div class="card">
-    <h1>🕵️ Spy Oyunu</h1>
+  <div class="wrapper">
+    <div class="card">
+      <h1>🕵️ Spy Oyunu</h1>
+      <div class="subtitle">Telefonu yalnız kart baxan oyunçu tutsun.</div>
 
-    <label>Oyunçu sayı:</label>
-    <input type="number" id="playerCount" min="3" max="20" value="8" />
+      <div class="row">
+        <div class="field field-half">
+          <label>Oyunçu sayı</label>
+          <input type="number" id="playerCount" min="3" max="20" value="8" inputmode="numeric" />
+        </div>
 
-    <label>Spy sayı:</label>
-    <input type="number" id="spyCount" min="1" max="5" value="2" />
+        <div class="field field-half">
+          <label>Spy sayı</label>
+          <input type="number" id="spyCount" min="1" max="10" value="2" inputmode="numeric" />
+        </div>
+      </div>
 
-    <label>Məkan:</label>
-    <select id="locationSelect">
-      <option value="random">Təsadüfi</option>
-      <option>Məktəb</option><option>Restoran</option>
-      <option>Kinozal</option><option>Hava limanı</option>
-      <option>Xəstəxana</option><option>Polis bölməsi</option>
-      <option>Bank</option><option>Muzey</option>
-    </select>
+      <div class="field">
+        <label>Məkan</label>
+        <select id="locationSelect">
+          <option value="random">Təsadüfi məkan</option>
+          <option>Məktəb</option>
+          <option>Restoran</option>
+          <option>Kinozal</option>
+          <option>Hava limanı</option>
+          <option>Xəstəxana</option>
+          <option>Polis bölməsi</option>
+          <option>Bank</option>
+          <option>Muzey</option>
+          <option>Kitabxana</option>
+          <option>Metro</option>
+        </select>
+      </div>
 
-    <button class="btn-main" id="startBtn">Oyunu Başlat</button>
+      <button class="btn-main" id="startBtn">Oyunu başlat</button>
 
-    <div class="status" id="statusText"></div>
+      <div class="status" id="statusText"></div>
 
-    <div class="card-box" id="cardBox"></div>
+      <div class="card-box" id="cardBox"></div>
 
-    <div style="display:flex; gap:4px; margin-top:10px;">
-      <button class="btn-secondary" id="showBtn" disabled>Kartı göstər</button>
-      <button class="btn-secondary" id="nextBtn" disabled>Növbəti</button>
+      <div class="btn-row">
+        <button class="btn-secondary" id="showBtn" disabled>Kartı göstər</button>
+        <button class="btn-secondary" id="nextBtn" disabled>Növbəti oyunçu</button>
+      </div>
+
+      <div class="hint">
+        Qayda: Hər oyunçu yalnız öz kartına baxır, sonra “Kartı gizlət” edib telefonu növbətiyə verir.
+      </div>
     </div>
   </div>
 
@@ -106,7 +256,7 @@
     function pickSpies(total, spyNum) {
       const arr = [];
       while (arr.length < spyNum) {
-        let x = Math.floor(Math.random() * total) + 1;
+        const x = Math.floor(Math.random() * total) + 1;
         if (!arr.includes(x)) arr.push(x);
       }
       return arr;
@@ -116,8 +266,18 @@
       players = parseInt(playerCount.value);
       const s = parseInt(spyCount.value);
 
+      if (isNaN(players) || players < 3) {
+        alert("Ən azı 3 oyunçu olmalıdır.");
+        return;
+      }
+
+      if (isNaN(s) || s < 1) {
+        alert("Ən azı 1 spy olmalıdır.");
+        return;
+      }
+
       if (s >= players) {
-        alert("Spy sayı oyunçu sayından çox ola bilməz!");
+        alert("Spy sayı oyunçu sayından az olmalıdır.");
         return;
       }
 
@@ -134,11 +294,15 @@
       nextBtn.disabled = false;
 
       statusText.textContent = `1-ci oyunçu kartına baxa bilər.`;
+      showBtn.textContent = "Kartı göstər";
 
-      console.log("DEBUG -> Spies:", spies, "Location:", locationName);
+      // DEBUG: istəsən bax, istəməsən fikir vermə 🙂
+      console.log("Spies:", spies, "Location:", locationName);
     };
 
     showBtn.onclick = () => {
+      if (!players) return;
+
       if (!visible) {
         visible = true;
         cardBox.style.display = "block";
@@ -150,24 +314,28 @@
         }
 
         showBtn.textContent = "Kartı gizlət";
+        statusText.textContent = `${current}-ci oyunçu kartına baxır.`;
       } else {
         visible = false;
         cardBox.style.display = "none";
         showBtn.textContent = "Kartı göstər";
+        statusText.textContent = `${current}-ci oyunçu kartı gizlədi.`;
       }
     };
 
     nextBtn.onclick = () => {
+      if (!players) return;
+
       if (visible) {
-        alert("Əvvəl kartı gizlət!");
+        alert("Əvvəl kartı gizlət, sonra növbəti oyunçuya keç.");
         return;
       }
 
       if (current < players) {
         current++;
-        statusText.textContent = `${current}-ci oyunçuya keçin.`;
+        statusText.textContent = `${current}-ci oyunçuya telefonu verin.`;
       } else {
-        statusText.textContent = "Bütün kartlar paylandı — oyun başlasın!";
+        statusText.textContent = "Bütün kartlar paylandı — müzakirə başlasın! 🎯";
         nextBtn.disabled = true;
         showBtn.disabled = true;
       }
